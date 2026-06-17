@@ -49,15 +49,17 @@ cmake_ninja_workdir = C$:/Users/moham/OneDrive/Desktop/folders/ProjectsForCV/HTT
 
 build cmake_object_order_depends_target_my_server: phony || .
 
-build CMakeFiles/my_server.dir/main.cpp.obj: CXX_COMPILER__my_server_unscanned_Debug C$:/Users/moham/OneDrive/Desktop/folders/ProjectsForCV/HTTPServerProject/main.cpp || cmake_object_order_depends_target_my_server
-  DEP_FILE = CMakeFiles\my_server.dir\main.cpp.obj.d
+build CMakeFiles/my_server.dir/src/main.cpp.obj: CXX_COMPILER__my_server_unscanned_Debug C$:/Users/moham/OneDrive/Desktop/folders/ProjectsForCV/HTTPServerProject/src/main.cpp || cmake_object_order_depends_target_my_server
+  DEP_FILE = CMakeFiles\my_server.dir\src\main.cpp.obj.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -IC:/Users/moham/OneDrive/Desktop/folders/ProjectsForCV/HTTPServerProject/include
   OBJECT_DIR = CMakeFiles\my_server.dir
-  OBJECT_FILE_DIR = CMakeFiles\my_server.dir
+  OBJECT_FILE_DIR = CMakeFiles\my_server.dir\src
 
 build CMakeFiles/my_server.dir/src/Server.cpp.obj: CXX_COMPILER__my_server_unscanned_Debug C$:/Users/moham/OneDrive/Desktop/folders/ProjectsForCV/HTTPServerProject/src/Server.cpp || cmake_object_order_depends_target_my_server
   DEP_FILE = CMakeFiles\my_server.dir\src\Server.cpp.obj.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -IC:/Users/moham/OneDrive/Desktop/folders/ProjectsForCV/HTTPServerProject/include
   OBJECT_DIR = CMakeFiles\my_server.dir
   OBJECT_FILE_DIR = CMakeFiles\my_server.dir\src
 
@@ -69,7 +71,7 @@ build CMakeFiles/my_server.dir/src/Server.cpp.obj: CXX_COMPILER__my_server_unsca
 #############################################
 # Link the executable my_server.exe
 
-build my_server.exe: CXX_EXECUTABLE_LINKER__my_server_Debug CMakeFiles/my_server.dir/main.cpp.obj CMakeFiles/my_server.dir/src/Server.cpp.obj
+build my_server.exe: CXX_EXECUTABLE_LINKER__my_server_Debug CMakeFiles/my_server.dir/src/main.cpp.obj CMakeFiles/my_server.dir/src/Server.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\my_server.dir

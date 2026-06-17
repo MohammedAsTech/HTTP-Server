@@ -10,7 +10,7 @@ using namespace std;
 class Server {
 public:
     Server(const string& port);
-    ~Server() = default;
+    ~Server();
     void start();
 private:
     std::string m_port;
