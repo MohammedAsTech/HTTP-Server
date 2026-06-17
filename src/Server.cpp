@@ -82,7 +82,7 @@ void Server::acceptLoop() {
         }
 
         std::cout << "Connection accepted from client IP: " << ip_str << std::endl;
-        
+
         close(client_fd);
     }
 }
