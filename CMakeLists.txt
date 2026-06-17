@@ -4,4 +4,6 @@ project(main)
 set(CMAKE_CXX_STANDARD 20)
 
 # Point to the file inside the sub-folder
-add_executable(my_server main.cpp)
+add_executable(my_server main.cpp
+        include/Server.h
+        src/Server.cpp)

@@ -55,6 +55,12 @@ build CMakeFiles/my_server.dir/main.cpp.obj: CXX_COMPILER__my_server_unscanned_D
   OBJECT_DIR = CMakeFiles\my_server.dir
   OBJECT_FILE_DIR = CMakeFiles\my_server.dir
 
+build CMakeFiles/my_server.dir/src/Server.cpp.obj: CXX_COMPILER__my_server_unscanned_Debug C$:/Users/moham/OneDrive/Desktop/folders/ProjectsForCV/HTTPServerProject/src/Server.cpp || cmake_object_order_depends_target_my_server
+  DEP_FILE = CMakeFiles\my_server.dir\src\Server.cpp.obj.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\my_server.dir
+  OBJECT_FILE_DIR = CMakeFiles\my_server.dir\src
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target my_server
@@ -63,7 +69,7 @@ build CMakeFiles/my_server.dir/main.cpp.obj: CXX_COMPILER__my_server_unscanned_D
 #############################################
 # Link the executable my_server.exe
 
-build my_server.exe: CXX_EXECUTABLE_LINKER__my_server_Debug CMakeFiles/my_server.dir/main.cpp.obj
+build my_server.exe: CXX_EXECUTABLE_LINKER__my_server_Debug CMakeFiles/my_server.dir/main.cpp.obj CMakeFiles/my_server.dir/src/Server.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\my_server.dir
