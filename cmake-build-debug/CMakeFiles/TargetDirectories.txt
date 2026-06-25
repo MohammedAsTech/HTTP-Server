@@ -1,0 +1,3 @@
+/mnt/c/Users/moham/OneDrive/Desktop/folders/ProjectsForCV/HTTPServerProject/cmake-build-debug/CMakeFiles/my_server.dir
+/mnt/c/Users/moham/OneDrive/Desktop/folders/ProjectsForCV/HTTPServerProject/cmake-build-debug/CMakeFiles/edit_cache.dir
+/mnt/c/Users/moham/OneDrive/Desktop/folders/ProjectsForCV/HTTPServerProject/cmake-build-debug/CMakeFiles/rebuild_cache.dir
