@@ -84,27 +84,22 @@ curl localhost:8080/missing
 curl --path-as-is localhost:8080/../etc/passwd
 ```
 
-## Testing
+## Design Patterns
 
-### Unit tests — parser, router, response builder, handlers
-```bash
-make test
-```
-53 tests, all passing.
+### Thread Pool
+`ThreadPool` maintains a fixed set of 4 worker threads that pull tasks from a shared `std::queue`. `Server::acceptLoop()` submits a task per connection and immediately returns to accepting — decoupling connection acceptance from request handling. Workers coordinate access to the queue via a `std::mutex` and `std::condition_variable`, waking only when work is available. On shutdown, a stop flag is set, all workers are notified, and every thread is joined cleanly.
 
-### Full shell test suite
-```bash
-./tests/test_server.sh
-```
-106 tests covering all routes, status codes, MIME types, path traversal, malformed requests, oversized bodies, wrong methods, concurrent connections, and post-stress health checks.
+### Strategy
+`Handler` is a pure virtual interface with a single `handle(req, res)` method. Each concrete handler — `HelloHandler`, `StaticFileHandler`, `EchoHandler`, `NotFoundHandler` — is a self-contained strategy that encapsulates one behaviour. The `Router` selects the correct strategy at runtime based on method and path, with no switch statements or conditionals in the dispatch logic. Adding a new route requires only a new `Handler` subclass and one `addRoute()` call.
 
-### Memory leak check
-```bash
-./tests/test_leaks.sh
-```
-Runs the server under valgrind, fires representative requests, shuts down via SIGINT, and reports heap leaks.
+### Singleton
+`Logger` is a singleton — `Logger::instance()` always returns the same object, shared across all worker threads. All writes are protected by an internal `std::mutex` so concurrent log lines never interleave. Handlers and the server core call `Logger::instance().log(...)` directly without needing a reference passed through the call chain.
 
-**Results: 0 definitely lost, 0 possibly lost, 0 errors.**
+### Chain of Responsibility
+`Router::dispatch()` applies a two-stage matching chain to every incoming request. It first attempts an exact `(method, path)` match against a `std::map`. If that fails, it walks a list of prefix routes in registration order, returning the first match. If nothing matches, the catch-all `NotFoundHandler` is returned. No request ever falls through without a response.
+
+### RAII
+All resource lifetimes are managed automatically. Handlers are owned by `std::shared_ptr` — the router holds them alive for as long as routes exist and they are destroyed when the router goes out of scope. `ThreadPool::~ThreadPool()` calls `shutdown()` automatically, ensuring all threads are joined before destruction. `Server::~Server()` closes the listening socket. No `delete`, no `free`, no manual cleanup anywhere in the codebase.
 
 ## Architecture
 
@@ -152,6 +147,10 @@ main.cpp  →  Server  →  ThreadPool (4 workers)
 | Unit tests       | 53    | 53     | 0      |
 | Shell tests      | 106   | 106    | 0      |
 | Memory leaks     | —     | 0 leaks| —      |
+
+## Development Note
+
+This project was built with the assistance of Claude (Anthropic) as a learning tool. All architectural decisions, design patterns, and implementation steps were walked through interactively — Claude acted as a senior engineer explaining concepts, reviewing code, and catching bugs, while I wrote, integrated, and debugged the actual code. The goal was to deeply understand how HTTP servers, thread pools, and socket programming work at a low level, not to generate code blindly.
 
 ## Notes
 
